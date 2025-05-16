@@ -1,0 +1,567 @@
+/* src/styles/MainPage.css */
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.main-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        flex-direction: row;
+    }
+}
+
+.sidebar {
+    display: none;
+    /* keep your existing display logic */
+    flex-direction: column;
+    background-color: #f1f1f1;
+    padding: 20px;
+    width: 200px;
+    height: 100vh;
+
+    position: sticky;
+    top: 0;
+    /* so it doesn’t stretch full height */
+}
+
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    padding: 12px 10px;
+    margin: 5px 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sidebar button:hover {
+    background-color: #e0e0e0;
+}
+
+.content-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 60px;
+    /* leave space for bottom nav */
+}
+
+.search-bar {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar input {
+    width: 95%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+}
+
+.search-bar input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+    padding: 24px;
+    padding-bottom: 44px;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Book Cover: keep width 100%, fixed aspect ratio ~ 2:3 (width:height) */
+.book-card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+    background-color: #f9f9f9;
+    /* optional, to show a neutral background */
+    border-bottom: 1px solid #eee;
+    border-radius: 14px 14px 0 0;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Book Info */
+.book-info {
+    padding: 6px 8px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.book-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #222;
+}
+
+.book-subtitle {
+    font-size: 0.875rem;
+    color: #555;
+    margin-bottom: 0px;
+    font-style: italic;
+}
+
+
+/* Favorite (Heart) Button */
+.heart-button {
+    position: absolute;
+    top: 5px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.heart-button:hover {
+    background: #ffe6e6;
+}
+
+.heart-button::before {
+    content: "❤️";
+    /* Or use an SVG/icon later */
+    font-size: 18px;
+}
+
+/* Swap Button */
+.swap-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    border-top: 1px solid #eee;
+    transition: background-color 0.3s;
+}
+
+.swap-button:hover {
+    background-color: #0056b3;
+}
+
+
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 0;
+    background-color: white;
+    border-top: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.bottom-nav button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Large screens */
+@media (min-width: 768px) {
+    .sidebar {
+        display: flex;
+    }
+
+    .content-container {
+        padding-bottom: 0;
+    }
+
+    .bottom-nav {
+        display: none;
+    }
+}
+
+.sidebar button.active,
+.bottom-nav button.active {
+    color: #3f51b5;
+    font-weight: bold;
+    border-bottom: 2px solid #3f51b5;
+}
+
+.bottom-nav button.active {
+    border-bottom: none;
+    border-top: 2px solid #3f51b5;
+}
+
+.fab-button {
+    position: fixed;
+    bottom: 95px;
+    right: 20px;
+    background-color: #3f51b5;
+    color: white;
+    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.fab-button:hover {
+    background-color: #2c3ea7;
+}
+
+.book-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.book-status {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+.delete-button {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: white;
+    background-color: #e53935;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c62828;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.confirm-button,
+.cancel-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.confirm-button {
+    background-color: #e53935;
+    color: white;
+}
+
+.confirm-button:hover {
+    background-color: #c62828;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: black;
+}
+
+.cancel-button:hover {
+    background-color: #bbb;
+}
+
+.book-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.book-actions-row .book-status {
+    flex: 1;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.book-actions-row .delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.book-actions-row .delete-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Main Grid for Swap Cards */
+.swap-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 10px;
+}
+
+/* Medium screens (tablet) */
+@media (min-width: 768px) {
+    .swap-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* Swap Card Styling */
+.swap-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.swap-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Cover Section */
+.swap-card-cover {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.swap-card-cover-image {
+    width: 49%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Make cover images taller on large screens */
+@media (min-width: 1024px) {
+    .swap-card-cover-image {
+        height: 240px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .swap-card-cover-image {
+        height: 280px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .swap-card-cover-image {
+        height: 320px;
+    }
+}
+
+/* Info Section */
+.swap-card-info {
+    margin-bottom: 20px;
+}
+
+.swap-book-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.swap-book-subtitle {
+    font-size: 15px;
+    color: #666;
+}
+
+/* Actions */
+.swap-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.swap-actions button {
+    padding: 10px 14px;
+    font-size: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+}
+
+.accept-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.reject-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.cancel-button {
+    background-color: #ff9800;
+    color: white;
+}
+
+/* Status */
+.swap-status {
+    font-size: 15px;
+    font-weight: bold;
+    color: #388e3c;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.search-bar {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    /* To cover content behind when sticky */
+    z-index: 100;
+    /* Stay on top */
+    padding: 10px 20px;
+    /* Optional: keep spacing consistent */
+    border-bottom: 1px solid #ddd;
+    /* Optional: subtle separator */
+}
+
+
+.search-results-overlay {
+    position: absolute;
+    top: 60px;
+    /* adjust if needed */
+    left: 40px;
+    right: 50px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    /* rounded corners */
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:hover {
+    background-color: #f0f0f0;
+}
+
+.search-result-cover {
+    width: 40px;
+    height: 56px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+.search-result-title {
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
